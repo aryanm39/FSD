@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Auto Background Color</title>
+</head>
+<body>
+  <script>
+    const colors = ['Orange', 'Green', 'Blue','Pink', 'Yellow', 'Purple'];
+
+    let currentColorIndex = 0;
+    function changeBackgroundColor() {
+      document.body.style.backgroundColor = colors[currentColorIndex];
+      currentColorIndex = (currentColorIndex + 1) % colors.length;
+      //const randomIndex = Math.floor(Math.random() * colors.length);
+      //document.body.style.backgroundColor = colors[randomIndex];
+
+    }
+    window.onload = () => {
+      setInterval(changeBackgroundColor, 1000);
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+  <title>Pizza Order System</title>
+</head>
+<body>
+  <div style="text-align: center" >
+    <h1>Custom Pizza Order</h1>
+    <form id="pizzaForm">
+      <label for="pizzaType">Select Pizza Type:</label>
+      <select id="pizzaType">
+        <option value="Plain Cheese margherita">Plain Cheese margherita</option>
+        <option value="cheese burst">cheese burst</option>
+        <option value="Peri Peri">Peri Peri</option>
+        <option value="Tandoori Panner">Tandoori Panner</option>
+        <option value="Mexican green">Mexican green</option>
+      </select>
+      <br /><br />
+      <label for="pizzaSize">Select Pizza Size:</label>
+      <select id="pizzaSize">
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+      </select>
+      <br /><br />
+      <button type="button" onclick="placeOrder()">Place Order</button>
+    </form>
+    <div id="orderDetails"></div>
+  </div>
+  <script src="q2.js"></script>
+</body>
+</html>
