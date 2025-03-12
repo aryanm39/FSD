@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Character and Word Counter</title>
+    <style>
+        textarea {
+            width: 50%;
+            height: 150px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Character and Word Counter</h1>
+    <textarea id="textInput" placeholder="Start typing..."></textarea>
+    <div>
+        <p>Characters: <span id="charCount">0</span></p>
+        <p>Words: <span id="wordCount">0</span></p>
+    </div>
+
+    <script>
+        function updateCounter() {
+            const text = document.getElementById('textInput').value;
+            const charCount = text.length;
+            const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
+
+            document.getElementById('charCount').textContent = charCount;
+            document.getElementById('wordCount').textContent = wordCount;
+        }
+
+        document.getElementById('textInput').addEventListener('input', updateCounter);
+    </script>
+</body>
+</html>
