@@ -1,19 +1,29 @@
+require('dotenv').config();
 const express = require('express');
-const fs = require('fs');
-const session = require('express-session');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const app = express();
-const USERS_FILE = 'users.json';
+const PORT = process.env.PORT || 3000;
+const MONGO_URI = process.env.MONGO_URI;
+
+mongoose.connect(MONGO_URI)
+    .then(() => console.log("MongoDB Connected"))
+    .catch(err => console.error("MongoDB Connection Error:", err));
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({ secret: 'secret_key', resave: false, saveUninitialized: true }));
+
+// User Model (Plain text password)
+const User = mongoose.model('User', new mongoose.Schema({
+    username: String,
+    password: String
+}));
 
 // Signup Page
 app.get('/signup', (req, res) => {
     res.send(`
-        <h2>User Signup</h2>
+        <h2>Sign Up</h2>
         <form action="/signup" method="post">
             <input type="text" name="username" placeholder="Username" required><br>
             <input type="password" name="password" placeholder="Password" required><br>
@@ -22,21 +32,19 @@ app.get('/signup', (req, res) => {
     `);
 });
 
-// Handle Signup
-app.post('/signup', (req, res) => {
-    const { username, password } = req.body;
-    let users = fs.existsSync(USERS_FILE) ? JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8')) : [];
-
-    users.push({ username, password });
-    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
-    
+// Signup Handler
+app.post('/signup', async (req, res) => {
+    if (await User.findOne({ username: req.body.username })) {
+        return res.send('User already exists! <a href="/signup">Try again</a>');
+    }
+    await new User(req.body).save();
     res.send('Signup successful! <a href="/login">Login here</a>');
 });
 
 // Login Page
 app.get('/login', (req, res) => {
     res.send(`
-        <h2>User Login</h2>
+        <h2>Login</h2>
         <form action="/login" method="post">
             <input type="text" name="username" placeholder="Username" required><br>
             <input type="password" name="password" placeholder="Password" required><br>
@@ -45,25 +53,15 @@ app.get('/login', (req, res) => {
     `);
 });
 
-// Handle Login
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    const users = fs.existsSync(USERS_FILE) ? JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8')) : [];
-
-    req.session.user = users.find(user => user.username === username && user.password === password);
-    res.redirect(req.session.user ? '/dashboard' : '/login');
+// Login Handler
+app.post('/login', async (req, res) => {
+    const user = await User.findOne(req.body);
+    if (!user) return res.send('Invalid credentials! <a href="/login">Try again</a>');
+    res.send(`<h2>Welcome, ${user.username}!</h2><a href="/logout">Logout</a>`);
 });
 
-// Dashboard (Protected)
-app.get('/dashboard', (req, res) => {
-    if (!req.session.user) return res.send('<a href="/login">Login here</a>');
-    res.send(`<h2>Welcome, ${req.session.user.username}!</h2><a href="/logout">Logout</a>`);
-});
-
-// Logout
-app.get('/logout', (req, res) => {
-    req.session.destroy(() => res.send('<a href="/login">Login again</a>'));
-});
+// Logout Route
+app.get('/logout', (req, res) => res.send('Logged out! <a href="/login">Login again</a>'));
 
 // Start Server
-app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}/signup`));
