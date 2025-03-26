@@ -3,7 +3,7 @@ const fs = require("fs");
 const url = require("url");
 
 http.createServer((req, res) => {
-  const q = url.parse(req.url, true); // true parses the query string into an object
+  const q = url.parse(req.url, true);
   console.log("Query:", q.query);
 
   // Access query parameters

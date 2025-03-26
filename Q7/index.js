@@ -20,9 +20,9 @@ const server = http.createServer((req,res)=>{
     }
     else
     {
-        res.statusCode = 404
-        res.end("PAGE NOT FOUND !!!")
-    }
+            res.statusCode = 404
+            res.end("PAGE NOT FOUND !!!")
+        }
 })
 
 server.listen(3000,()=>{
