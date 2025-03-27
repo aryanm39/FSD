@@ -4,33 +4,23 @@
   <title>Live Text Validation</title>
 </head>
 <body>
+
   <h1>Text Validation</h1>
   <label for="textInput">Enter text (at least 5 characters, no special characters):</label>
   <br>
   <input type="text" id="textInput" oninput="validateInput()">
-  <div id="errorMessage" class="error-message"></div>
-  <div id="successMessage" class="success-message"></div>
+  <div id="message"></div>
 
   <script>
     function validateInput() {
       const input = document.getElementById('textInput').value;
-      const errorMessage = document.getElementById('errorMessage');
-      const successMessage = document.getElementById('successMessage');
+      const message = document.getElementById('message');
+      const isValid = /^[a-zA-Z0-9 ]{5,}$/.test(input);
 
-      const regex = /^[a-zA-Z0-9 ]{5,}$/;
-
-      if (!regex.test(input)) {
-        errorMessage.textContent = 'Invalid input!';
-        errorMessage.style.display = 'block';
-        errorMessage.style.color="red"
-        successMessage.style.display = 'none';
-      } else {
-        successMessage.textContent='Valid input!'
-        errorMessage.style.display = 'none';
-        successMessage.style.display = 'block';
-        successMessage.style.color="green"
-      }
+      message.textContent = isValid ? "Valid input!" : "Invalid input!";
+      message.style.color = isValid ? "green" : "red";
     }
   </script>
+
 </body>
 </html>

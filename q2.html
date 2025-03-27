@@ -2,51 +2,50 @@
 <html>
 <head>
     <meta charset="UTF-8">
-  <title>Pizza Order System</title>
+    <title>Pizza Order System</title>
 </head>
 <body>
-  <div style="text-align: center" >
-    <h1>Custom Pizza Order</h1>
-    <form id="pizzaForm">
-      <label for="pizzaType">Select Pizza Type:</label>
-      <select id="pizzaType">
-        <option value="Plain Cheese margherita">Plain Cheese margherita</option>
-        <option value="cheese burst">cheese burst</option>
-        <option value="Peri Peri">Peri Peri</option>
-        <option value="Tandoori Panner">Tandoori Panner</option>
-        <option value="Mexican green">Mexican green</option>
-      </select>
-      <br /><br />
-      <label for="pizzaSize">Select Pizza Size:</label>
-      <select id="pizzaSize">
-        <option value="small">Small</option>
-        <option value="medium">Medium</option>
-        <option value="large">Large</option>
-      </select>
-      <br /><br />
-      <button type="button" onclick="placeOrder()">Place Order</button>
-    </form>
-    <div id="orderDetails"></div>
-  </div>
-  <script>
-    const pizzaPrices = {
-      "Plain Cheese margherita": { small:80, medium: 120, large: 150 },
-      "cheese burst": { small:150, medium: 120, large: 150 },
-      "Peri Peri": { small:160, medium: 120, large: 150 },
-      "Tandoori Panner": { small:170, medium: 120, large: 150 },
-      "Mexican green": { small:180, medium: 120, large: 150 }
+    <div style="text-align: center">
+        <h1>Custom Pizza Order</h1>
+        <form id="pizzaForm">
+            <label for="pizzaType">Select Pizza Type:</label>
+            <select id="pizzaType">
+                <option value="Plain Cheese margherita">Plain Cheese Margherita</option>
+                <option value="cheese burst">Cheese Burst</option>
+                <option value="Peri Peri">Peri Peri</option>
+                <option value="Tandoori Paneer">Tandoori Paneer</option>
+                <option value="Mexican Green">Mexican Green</option>
+            </select>
+            <br><br>
+            <label for="pizzaSize">Select Pizza Size:</label>
+            <select id="pizzaSize">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select>
+            <br><br>
+            <button type="button" onclick="placeOrder()">Place Order</button>
+        </form>
+        <div id="orderDetails"></div>
+    </div>
+    
+    <script>
+        const pizzaPrices = {
+            "Plain Cheese margherita": { small: 80, medium: 120, large: 150 },
+            "cheese burst": { small: 150, medium: 200, large: 250 },
+            "Peri Peri": { small: 160, medium: 220, large: 270 },
+            "Tandoori Paneer": { small: 170, medium: 230, large: 280 },
+            "Mexican Green": { small: 180, medium: 240, large: 290 }
+        };
 
-    };
-    
-    function placeOrder() {
-      const pizzaType = document.getElementById("pizzaType").value;
-      const pizzaSize = document.getElementById("pizzaSize").value;
-    
-      const price = pizzaPrices[pizzaType][pizzaSize];
-    
-      const orderDetails = document.getElementById("orderDetails");
-      orderDetails.innerHTML =`<br>You ordered a ${pizzaSize} ${pizzaType} pizza.<br> Price:₹ ${price}`;
-    }
-  </script>
+        function placeOrder() {
+            const pizzaType = document.getElementById("pizzaType").value;
+            const pizzaSize = document.getElementById("pizzaSize").value;
+            const price = pizzaPrices[pizzaType][pizzaSize];
+
+            document.getElementById("orderDetails").innerHTML = 
+                `<br>You ordered a <strong>${pizzaSize} ${pizzaType}</strong> pizza.<br> Price: ₹${price}`;
+        }
+    </script>
 </body>
 </html>
