@@ -1,21 +1,17 @@
-require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MONGO_URI = process.env.MONGO_URI;
-
-if (!MONGO_URI) {
-    console.error("Error: MONGO_URI is missing in .env file.");
-    process.exit(1);
-}
+const MONGO_URI = 'mongodb://localhost:27017/ToDoDB';
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // MongoDB Connection
