@@ -6,24 +6,26 @@
     <title>Character and Word Counter</title>
     <style>
         .textarea{
-            font-size: 20px;
             width: 50%;
             height: 150px;
+            font-size: 20px;
         }
     </style>
 </head>
-<body style="text-align: center;">
+<body>
     <h1>Character and Word Counter</h1>
-    <textarea  id="textInput" class="textarea"></textarea>
-    <p>Characters:<span id="charCount">0</span></p>
-    <p>Words:<span id="wordCount">0</span></p>
+    <textarea  id="textInput" class="textarea" placeholder="Start Typing...."></textarea>
+    <h3><p>Characters:<span id="charCount">0</span></p>
+    <p>Words:<span id="wordCount">0</span></p></h3>
     <script>
-        const textInput = document.getElementById("textInput").value;
-        const charCount = document.getElementById("charCount").value;
-        const wordCount = document.getElementById("wordCount").value;
-        textInput.add
-
-
+        const textInput = document.getElementById("textInput");
+        const charCount = document.getElementById("charCount");
+        const wordCount = document.getElementById("wordCount");
+        textInput.addEventListener('input',()=>{
+            const text = textInput.value.trim();
+            charCount.textContent = text.length;
+            wordCount.textContent = text ? text.split(/\s+/).length : 0;
+        });
     </script>
 </body>
 </html>
