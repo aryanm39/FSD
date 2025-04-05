@@ -25,6 +25,7 @@ mongoose.connect(MONGO_URI)
 const todoSchema = new mongoose.Schema({ task: String });
 const Todo = mongoose.model('Todo', todoSchema);
 
+// Routes
 app.get('/', async (req, res) => {
     const todos = await Todo.find();
     res.render('index', { todos });
@@ -48,12 +49,6 @@ app.post('/update/:id', async (req, res) => {
 });
 
 app.get('/delete/:id', async (req, res) => {
-    await Todo.findByIdAndDelete(req.params.id);
-    res.redirect('/');
-});
-
-
-app.post('/delete', async (req, res) => {
     await Todo.findByIdAndDelete(req.params.id);
     res.redirect('/');
 });
