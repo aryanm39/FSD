@@ -47,13 +47,14 @@ app.post('/update/:id', async (req, res) => {
     res.redirect('/');
 });
 
-app.get('/delete', async (req, res) => {
-    const todos = await Todo.find();
-    res.render('delete', { todos });
+app.get('/delete/:id', async (req, res) => {
+    await Todo.findByIdAndDelete(req.params.id);
+    res.redirect('/');
 });
 
+
 app.post('/delete', async (req, res) => {
-    await Todo.findByIdAndDelete(req.body.taskId);
+    await Todo.findByIdAndDelete(req.params.id);
     res.redirect('/');
 });
 
