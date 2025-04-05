@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3001;
 const MONGO_URI = 'mongodb://localhost:27017/ToDoDB';
 
 // Middleware
@@ -22,11 +22,9 @@ mongoose.connect(MONGO_URI)
         process.exit(1);
     });
 
-// Define Todo Schema and Model
 const todoSchema = new mongoose.Schema({ task: String });
 const Todo = mongoose.model('Todo', todoSchema);
 
-// Routes
 app.get('/', async (req, res) => {
     const todos = await Todo.find();
     res.render('index', { todos });
@@ -59,5 +57,4 @@ app.post('/delete', async (req, res) => {
     res.redirect('/');
 });
 
-// Start Server
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

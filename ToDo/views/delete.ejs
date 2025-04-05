@@ -1,29 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Delete Task</title>
+  <title>Delete Task</title>
 </head>
-<body>
-    <div>
-        <h1>Delete Task</h1>
+<body style="text-align: center;">
+  <h1>Delete Task</h1>
 
-        <div>
-            <form action="/delete" method="POST">
-                <div>
-                    <label>Select Task to Delete:</label>
-                    <select name="taskId">
-                        <% todos.forEach(todo => { %>
-                            <option value="<%= todo._id %>"><%= todo.task %></option>
-                        <% }) %>
-                    </select>
-                </div>
-                <button type="submit">Delete Task</button>
-            </form>
-        </div>
+  <form action="/delete" method="POST">
+    <label>Select a Task to Delete:</label><br><br>
+    <select name="taskId" required>
+      <% todos.forEach(todo => { %>
+        <option value="<%= todo._id %>"><%= todo.task %></option>
+      <% }) %>
+    </select><br><br>
+    <button type="submit">Delete</button>
+  </form>
 
-        <div>
-            <a href="/">Back</a>
-        </div>
-    </div>
+  <div style="margin-top: 20px;">
+    <a href="/">Back to List</a>
+  </div>
 </body>
 </html>
