@@ -1,33 +1,12 @@
 <!DOCTYPE html>
+<html>
 <head>
   <title>To-Do List</title>
-  <style>
-    body{
-        font-family: Arial;
-        font-size: 20px;
-    }
-    form{
-      display: inline;
-    }
-    button{
-      font-family: Arial;
-      font-size: 20px;
-    }
-    .delete{
-      background-color: red;
-    }
-    .update{
-      background-color:yellow;
-    }
-    .insert{
-      background-color: royalblue;
-    }
-  </style>
 </head>
 <body style="text-align: center;">
   <h1>To-Do List</h1>
 
-  <table border="1" cellpadding="10" cellspacing="0" align="center">
+  <table style="margin: 0 auto;">
     <tr>
       <th>#</th>
       <th>Task</th>
@@ -38,20 +17,20 @@
         <td><%= index + 1 %></td>
         <td><%= todo.task %></td>
         <td>
-          <form action="/update/<%= todo._id %>" method="GET" class="form">
-            <button type="submit" class="update">Edit</button>
+          <form action="/update/<%= todo._id %>" method="GET" style="display:inline;">
+            <button type="submit" class="btn-update">Edit</button>
           </form>
-          <form action="/delete/<%= todo._id %>" method="GET" class="form">
-            <button type="submit" class="delete">Delete</button>
+          <form action="/delete/<%= todo._id %>" method="GET" style="display:inline;">
+            <button type="submit" class="btn-delete">Delete</button>
           </form>
         </td>
       </tr>
     <% }) %>
   </table>
 
-  <div style="margin-top:20px;">
+  <div style="margin-top: 20px;">
     <form action="/insert" method="GET">
-      <button type="submit" class="insert">Add Task</button>
+      <button type="submit" class="btn-insert">Add Task</button>
     </form>
   </div>
 </body>
