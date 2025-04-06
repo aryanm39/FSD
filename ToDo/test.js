@@ -4,17 +4,16 @@ const mongoose = require('mongoose');
 const path = require('path');
 
 const app = express();
+
 const PORT = 3001;
 const MONGO_URI = 'mongodb://localhost:27017/ToDoDB';
 
-// Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// MongoDB Connection
 mongoose.connect(MONGO_URI)
     .then(() => console.log("MongoDB Connected"))
     .catch(err => {
@@ -25,7 +24,6 @@ mongoose.connect(MONGO_URI)
 const todoSchema = new mongoose.Schema({ task: String });
 const Todo = mongoose.model('Todo', todoSchema);
 
-// Routes
 app.get('/', async (req, res) => {
     const todos = await Todo.find();
     res.render('index', { todos });
